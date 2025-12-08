@@ -1,31 +1,23 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import todoRoutes from "./routes/todoRoutes.js";
 import { sequelize } from "./database/sequelize.js";
-import { Todo } from "./models/Todo.js";
-
-
-dotenv.config();
+import Todo from "./models/Todo.js";
+import User from "./models/UserModel.js";
+import authRoutes from "./routes/authRoutes.js";
+import todoRoutes from "./routes/todoRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
-// middlewares
 app.use(cors());
 app.use(express.json());
 
-// health check
-app.get("/", (req, res) => {
-  res.json({ message: "Todo API is running" });
-});
 
-// main todo routes
-app.use("/api", todoRoutes);
+User.hasMany(Todo);
+Todo.belongsTo(User);
+
+app.use("/api/auth", authRoutes);
+app.use("/api/todos", todoRoutes);
+
 sequelize.sync().then(() => {
-  console.log("Database synced");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log("DB synced");
+  app.listen(5000, () => console.log("Server running on 5000"));
 });

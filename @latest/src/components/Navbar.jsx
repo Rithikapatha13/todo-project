@@ -1,6 +1,3 @@
-
-
-// import { useState } from "react";
 function Navbar({ darkMode, setDarkMode }) {
   const toggleTheme = () => {
     const html = document.documentElement;
@@ -12,7 +9,11 @@ function Navbar({ darkMode, setDarkMode }) {
     setDarkMode(!darkMode);
   };
 
-
+  // ✅ Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // remove JWT
+    window.location.href = "/login";  // redirect to login
+  };
 
   return (
     <div className="flex items-center justify-between mb-6">
@@ -20,40 +21,25 @@ function Navbar({ darkMode, setDarkMode }) {
         TODO TASKS
       </h1>
 
-      <button
-        onClick={toggleTheme}
-        className="px-4 py-2 rounded-xl bg-indigo-500 text-indigo-300 font-medium shadow hover:bg-indigo-600"
-      >
-        {darkMode ? "Light Mode" : "Dark Mode"}
-      </button>
+      <div className="flex items-center gap-3">
+        {/* Theme Button */}
+        <button
+          onClick={toggleTheme}
+          className="px-4 py-2 rounded-xl bg-indigo-500 text-indigo-100 font-medium shadow hover:bg-indigo-600"
+        >
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 rounded-xl bg-red-500 text-white font-medium shadow hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
 
 export default Navbar;
-
-
-// function Navbar() {
-//   const [darkMode, setDarkMode] = useState(
-//     document.documentElement.classList.contains("dark")
-//   );
-
-//   const toggleTheme = () => {
-//     const html = document.documentElement;
-
-//     if (html.classList.contains("dark")) {
-//       html.classList.remove("dark");
-//       setDarkMode(false);
-//     } else {
-//       html.classList.add("dark");
-//       setDarkMode(true);
-//     }
-//   };
-
-//   return (
-//     <button onClick={toggleTheme}>
-//       {darkMode ? "Light Mode" : "Dark Mode"}
-//     </button>
-//   );
-// }
-// export default Navbar;

@@ -1,36 +1,53 @@
+import Todo from "../models/Todo.js";
 
-
-import { Todo } from "../models/Todo.js";
-
-
-
-// GET /api/todos
 export const getTodos = async (req, res) => {
-  const todos = await Todo.findAll({ order: [["createdAt", "DESC"]] });
-  res.json(todos);
+  try {
+    const todos = await Todo.findAll({
+      where: { userId: req.userId },
+      order: [["createdAt", "ASC"]],
+    });
+    res.json(todos);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-
-// POST /api/todos
 export const createTodo = async (req, res) => {
-  const todo = await Todo.create(req.body);
-  res.json(todo);
+  try {
+    const todo = await Todo.create({
+      ...req.body,
+      userId: req.userId,
+    });
+    res.json(todo);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-
-// PUT /api/todos/:id
 export const updateTodo = async (req, res) => {
-  const id = req.params.id;
-  await Todo.update(req.body, { where: { id } });
-  const updated = await Todo.findByPk(id);
-  res.json(updated);
+  try {
+    const { id } = req.params;
+
+    await Todo.update(req.body, {
+      where: { id, userId: req.userId },
+    });
+
+    res.json({ message: "Updated" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-
-// DELETE /api/todos/:id
 export const deleteTodo = async (req, res) => {
-  const id = req.params.id;
-  await Todo.destroy({ where: { id } });
-  res.json({ message: "Deleted" });
-};
+  try {
+    const { id } = req.params;
 
+    await Todo.destroy({
+      where: { id, userId: req.userId },
+    });
+
+    res.json({ message: "Deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
