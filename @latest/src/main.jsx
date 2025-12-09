@@ -1,29 +1,66 @@
+// import ReactDOM from "react-dom/client";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// import Landing from "./pages/Landing";
+// import Login from "./pages/Login";
+// import Register from "./pages/Register";
+// import App from "./App";
+// import ProtectedRoute from "./components/ProtectedRoutes";
+
+
+// ReactDOM.createRoot(document.getElementById("root")).render(
+//   <BrowserRouter>
+//     <Routes>
+//       <Route path="/" element={<Landing />} />
+//       <Route path="/login" element={<Login />} />
+//       <Route path="/register" element={<Register />} />
+
+//       <Route
+//         path="/dashboard"
+//         element={
+//           <ProtectedRoute>
+//             <App />
+//           </ProtectedRoute>
+//         }
+//       />
+
+//     </Routes>
+//   </BrowserRouter>
+// );
+
+
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import App from "./App";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Landing from "./pages/Landing";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import "./tailwind.css";
+import App from "./App";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Routes>
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
 
-      {/* PUBLIC ROUTES */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Register />} />
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      {/* PROTECTED ROUTE */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <App />
-          </ProtectedRoute>
-        }
-      />
+        {/* PROTECTED DASHBOARD */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <App />
+            </ProtectedRoute>
+          }
+        />
 
-    </Routes>
-  </BrowserRouter>
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>
 );

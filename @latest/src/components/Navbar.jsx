@@ -11,8 +11,8 @@ function Navbar({ darkMode, setDarkMode }) {
 
   // ✅ Logout function
   const handleLogout = () => {
-    localStorage.removeItem("token"); // remove JWT
-    window.location.href = "/login";  // redirect to login
+    localStorage.removeItem("token"); 
+    window.location.href = "/login";  
   };
 
   return (

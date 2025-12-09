@@ -206,11 +206,10 @@ function App() {
       <div className="max-w-5xl mx-auto">
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
-        {/* <div className="backdrop-blur-xl bg-white/20 dark:bg-white/5 border border-white/30 dark:border-white/10 rounded-3xl shadow-xl p-6 space-y-6"> */}
         <div
           className="
   backdrop-blur-xl 
-  bg-white/10 dark:bg-white/2 
+  bg-white/5 dark:bg-white/2
   border border-white/30 dark:border-white/10 
   rounded-3xl 
   shadow-2xl shadow-indigo-300/30 dark:shadow-black/40 
@@ -238,7 +237,7 @@ function App() {
 
             <div className="space-y-3 max-h-[480px] overflow-y-auto pr-1">
               {filtered.length === 0 ? (
-                <p className="text-center opacity-70">No tasks found.</p>
+                <p className="text-center opacity-70 text-gray-400">No tasks found.</p>
               ) : (
                 filtered.map((todo) => (
                   <TodoCard
